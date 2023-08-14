@@ -18,5 +18,5 @@ func helloHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func introHandler(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("Welcome to FilmClub!"))
+	w.Write([]byte("Welcome to Modus!"))
 }
