@@ -2,6 +2,7 @@ package database
 
 import (
 	"database/sql"
+	"fmt"
 	"log"
 	"os"
 
@@ -45,4 +46,16 @@ func RegisterUser(name, email, password string) (int64, error) {
 	}
 
 	return id, nil
+}
+
+func GetUserPassword(email string) (string, error) {
+	var password string
+	row := db.QueryRow("SELECT password FROM users WHERE email = ?", email)
+	if err := row.Scan(&password); err != nil {
+		if err == sql.ErrNoRows {
+			return "", fmt.Errorf("Email not found; please try again")
+		}
+		return "", fmt.Errorf("Internal error: [%s]", err)
+	}
+	return password, nil
 }

@@ -1,7 +1,7 @@
-import { React, useState, useEffect } from "react";
+import { React, useState } from "react";
 import axios from "axios";
 
-function Signup() {
+function Register() {
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -41,7 +41,7 @@ function Signup() {
         <form class="mt-4 w-4/6" onSubmit={handleSubmit}>
           <div class="w-full">
             <label class="block text-[#eff1f5] text-m font-sans mb-2">Profile name</label>
-            <input class="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-[#eff1f5]" id="email" type="text" placeholder="Enter a profile name" name="username" value={formData.username} onChange={handleChange} />
+            <input class="shadow appearance-none border rounded w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-[#eff1f5]" id="username" type="text" placeholder="Enter a profile name" name="username" value={formData.username} onChange={handleChange} />
           </div>
           <div class="w-full mt-4">
             <label class="block text-[#eff1f5] text-m font-sans mb-2">Email</label>
@@ -53,11 +53,11 @@ function Signup() {
           </div>
           <button class="mt-6 w-full bg-[#cdd6f4] hover:bg-[#eff1f5] text-[#1e1e2e] font-sans font-medium py-4 px-3 rounded focus:outline-none focus:shadow-outline" type="submit">Continue</button>
         </form>
-        <p class="flex justify-center mt-4 text-[#eff1f5] font-sans">Already have an account?<a href="/signin" class="ml-1 text-[#cdd6f4]">Login</a></p>
+        <p class="flex justify-center mt-4 text-[#eff1f5] font-sans">Already have an account?<a href="/login" class="ml-1 text-[#cdd6f4]">Login</a></p>
         <p class="flex justify-center mt-4 text-[#eff1f5] font-sans font-medium">OR</p>
       </div>
     </div>
   )
 }
 
-export default Signup;
+export default Register;
