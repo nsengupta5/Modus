@@ -24,6 +24,7 @@ function Login() {
     e.preventDefault();
     setAlertMsg(null);
     setAlertType(null);
+
     const options = {
       method: "POST",
       headers: { "Content-Type": "application/json" },

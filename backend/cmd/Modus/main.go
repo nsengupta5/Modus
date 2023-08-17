@@ -14,7 +14,7 @@ import (
 func main() {
 	viper.SetConfigName("config")
 	viper.SetConfigType("yaml")
-	viper.AddConfigPath("../..")
+	viper.AddConfigPath("../../internal")
 	if err := viper.ReadInConfig(); err != nil {
 		if _, ok := err.(viper.ConfigFileNotFoundError); ok {
 			log.Fatal("Config file not found", err)
