@@ -4,17 +4,17 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
-	"os"
 
 	"github.com/go-sql-driver/mysql"
+	"github.com/spf13/viper"
 )
 
 var db *sql.DB
 
 func InitDB() error {
 	cfg := mysql.Config{
-		User:   os.Getenv("DBUSER"),
-		Passwd: os.Getenv("DBPASS"),
+		User:   viper.GetString("dbuser"),
+		Passwd: viper.GetString("dbpass"),
 		Net:    "tcp",
 		Addr:   "127.0.0.1:3306",
 		DBName: "modus",
