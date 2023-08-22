@@ -11,6 +11,12 @@ import (
 
 var db *sql.DB
 
+type User struct {
+	Email    string
+	Name     string
+	Password string
+}
+
 func InitDB() error {
 	cfg := mysql.Config{
 		User:   viper.GetString("dbuser"),
@@ -48,14 +54,14 @@ func RegisterUser(name, email, password string) (int64, error) {
 	return id, nil
 }
 
-func GetUserPassword(email string) (string, error) {
-	var password string
-	row := db.QueryRow("SELECT password FROM users WHERE email = ?", email)
-	if err := row.Scan(&password); err != nil {
+func GetUser(email string) (*User, error) {
+	var user User
+	row := db.QueryRow("SELECT name, email, password FROM users WHERE email = ?", email)
+	if err := row.Scan(&user.Name, &user.Email, &user.Password); err != nil {
 		if err == sql.ErrNoRows {
-			return "", fmt.Errorf("Email not found; please try again")
+			return nil, fmt.Errorf("Email not found; please try again")
 		}
-		return "", fmt.Errorf("Internal error: [%s]", err)
+		return nil, fmt.Errorf("Internal error: [%s]", err)
 	}
-	return password, nil
+	return &user, nil
 }
