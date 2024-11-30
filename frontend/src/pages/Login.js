@@ -1,10 +1,12 @@
 import { React, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Input from '../components/form/Input'
 import Button from '../components/form/Button'
 import Alert from '../components/ui/Alert'
 
 function Login() {
+  const navigate = useNavigate();
   const [alertType, setAlertType] = useState(null);
   const [alertMsg, setAlertMsg] = useState(null);
   const [formData, setFormData] = useState({
@@ -36,6 +38,7 @@ function Login() {
       await axios(options);
       setAlertType("success");
       setAlertMsg("Successful login!");
+      navigate("/");
     } catch (err) {
       setAlertType("error");
       setAlertMsg(err.response.data);

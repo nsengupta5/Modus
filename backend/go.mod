@@ -1,9 +1,8 @@
 module github.com/nsengupta5/Modus
 
-go 1.21.0
+go 1.23
 
 require (
-	github.com/go-chi/chi v1.5.4
 	github.com/go-sql-driver/mysql v1.7.1
 	github.com/golang-jwt/jwt/v5 v5.0.0
 	github.com/spf13/viper v1.16.0

@@ -3,10 +3,10 @@ package routes
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 	"time"
 
-	"github.com/go-chi/chi"
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/nsengupta5/Modus/internal/database"
 	"github.com/spf13/viper"
@@ -19,12 +19,19 @@ type Claims struct {
 	jwt.RegisteredClaims
 }
 
-func DefineRoutes() *chi.Mux {
-	router := chi.NewRouter()
-	router.Get("/intro", introHandler)
-	router.Post("/register", registerHandler)
-	router.Post("/login", loginHandler)
+func DefineRoutes() http.Handler {
+	router := http.NewServeMux()
+	router.HandleFunc("/intro", introHandler)
+	router.HandleFunc("/register", registerHandler)
+	router.HandleFunc("/login", loginHandler)
 	return router
+}
+
+func LoggingMiddleware(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		log.Println(r.Method, r.URL)
+		next.ServeHTTP(w, r)
+	})
 }
 
 func introHandler(w http.ResponseWriter, r *http.Request) {
@@ -39,7 +46,7 @@ func introHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		w.Write([]byte("Welcome to Modus!"))
 	} else {
-		w.Write([]byte(fmt.Sprintf("Welcome back %s!", user.Name)))
+		w.Write([]byte(fmt.Sprintf("Welcome back, %s!", user.Name)))
 	}
 }
 
